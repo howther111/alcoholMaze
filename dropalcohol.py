@@ -27,8 +27,8 @@ def main():
                                             "page"        : page_rnd
                                           }).json()
 
-    with open("output.json", "w", encoding="utf-8") as f:
-        json.dump(first_response, f, indent=4, ensure_ascii=False)
+    #with open("output.json", "w", encoding="utf-8") as f:
+    #    json.dump(first_response, f, indent=4, ensure_ascii=False)
 
     #print(first_response["count"])
     hitsminus = hits - 1
@@ -39,6 +39,14 @@ def main():
     print("価格:" + str(choice_item["Item"]["itemPrice"]) + "円")
     #print("商品画像:" + choice_item["Item"]["mediumImageUrls"][0]["imageUrl"])
     print("購入ページ:" + choice_item["Item"]["itemUrl"])
+
+    output = choice_item["Item"]["itemName"] + "\n" + \
+        choice_item["Item"]["itemCaption"] + "\n" + \
+        "価格:" + str(choice_item["Item"]["itemPrice"]) + "円" + "\n" + \
+        "購入ページ:" + choice_item["Item"]["itemUrl"]
+
+    with open("alcohol.txt", "w", encoding="utf-8") as f:
+        f.write(output)
 
 if __name__ == "__main__":
     main()

@@ -59,6 +59,14 @@ class GenerateMaze():
                 print(char.center(print_width), end='')
             print()
 
+    def output_maze(self, print_width=1):
+        ret = ""
+        for line in self.maze:
+            for char in line:
+                ret = ret + char
+            ret = ret + "\n"
+        return ret
+
     # SとGをself.mazeに書き込み
     def preset_start_goal(self):
         self.start = (self.height-2, 0)
@@ -95,4 +103,9 @@ if __name__ == '__main__':
     maze = GenerateMaze(width, height)
     maze.preset_start_goal()
     maze.print_maze()
+    mazetext = maze.output_maze()
+    print(mazetext)
+
+    with open("maze.txt", "w", encoding="utf-8") as f:
+        f.write(mazetext)
     #酒を探して
