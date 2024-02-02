@@ -9,9 +9,9 @@ def main():
     url = "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706"
 
     api_id      = "1002559749369439117" # applicationIdを入力
-    genreId     = "510901"
+    keyword     = "日本酒"
     out_format  = "json"
-    min_price = "1000"
+    min_price = "500"
     max_price = "10000"
     hits = 30
     pagemax = 100
@@ -19,7 +19,7 @@ def main():
 
     first_response = requests.get(url, params = {
                                             "applicationId": api_id,
-                                            "genreId"      : genreId,
+                                            "keyword"      : keyword,
                                             "format"       : out_format,
                                             "minPrice"    : min_price,
                                             "maxPrice"    : max_price,
@@ -37,7 +37,8 @@ def main():
     print(choice_item["Item"]["itemName"])
     print(choice_item["Item"]["itemCaption"])
     print("価格:" + str(choice_item["Item"]["itemPrice"]) + "円")
-    print("商品画像:" + choice_item["Item"]["mediumImageUrls"][0]["imageUrl"])
+    #print("商品画像:" + choice_item["Item"]["mediumImageUrls"][0]["imageUrl"])
+    print("購入ページ:" + choice_item["Item"]["itemUrl"])
 
 if __name__ == "__main__":
     main()
