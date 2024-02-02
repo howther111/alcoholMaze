@@ -10,6 +10,7 @@ def main():
 
     api_id      = "1002559749369439117" # applicationIdを入力
     keyword     = "日本酒"
+    genreId     = "510901"
     out_format  = "json"
     min_price = "500"
     max_price = "10000"
@@ -19,6 +20,7 @@ def main():
 
     first_response = requests.get(url, params = {
                                             "applicationId": api_id,
+                                            "genreId"      : genreId,
                                             "keyword"      : keyword,
                                             "format"       : out_format,
                                             "minPrice"    : min_price,
