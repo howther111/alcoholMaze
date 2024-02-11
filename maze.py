@@ -1,5 +1,5 @@
 import random
-
+from PIL import Image, ImageDraw
 
 class GenerateMaze():
 
@@ -59,6 +59,43 @@ class GenerateMaze():
                 print(char.center(print_width), end='')
             print()
 
+    def draw_maze(self):
+        x_max = 0
+        x_max_sum = 0
+        y_max = 0
+        pix_size = 200
+        for line in self.maze:
+            for char in line:
+                x_max_sum = x_max_sum + (pix_size ** 2)
+            y_max = y_max + pix_size
+        x_max = x_max_sum // y_max
+
+        im = Image.new("RGB", (x_max, y_max), (255, 255, 255))
+
+        #im.save("maze.png")
+        wallImage = Image.open("mazewall.png")
+        floorImage = Image.open("mazefloor.png")
+        startImage = Image.open("mazefloorstart.png")
+        goalImage = Image.open("mazefloorgoal.png")
+        x_pos = 0
+        y_pos = 0
+
+        for line in self.maze:
+            for char in line:
+                if char == " ":
+                    im.paste(floorImage, (x_pos, y_pos))
+                elif char == "#":
+                    im.paste(wallImage, (x_pos, y_pos))
+                elif char == "S":
+                    im.paste(startImage, (x_pos, y_pos))
+                elif char == "G":
+                    im.paste(goalImage, (x_pos, y_pos))
+                x_pos = x_pos + pix_size
+            y_pos = y_pos + pix_size
+            x_pos = 0
+
+        im.save("maze.png")
+
     def output_maze(self, print_width=1):
         ret = ""
         for line in self.maze:
@@ -105,6 +142,7 @@ if __name__ == '__main__':
     maze.print_maze()
     mazetext = maze.output_maze()
     print(mazetext)
+    maze.draw_maze()
 
     with open("maze.txt", "w", encoding="utf-8") as f:
         f.write(mazetext)
